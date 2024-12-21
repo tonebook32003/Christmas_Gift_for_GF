@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Gift Selector</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="snowfall"></div>
+    <div class="container">
+        <h1>Choose Your Christmas Surprise 🎄</h1>
+        <p class="subtitle">Em bé hãy chọn 3 món quà ở bên dưới nheee ❤️</p>
+        <p class="choices-left">Số lượt còn lại: <span id="choices-left">3</span></p>
+        
+        <!-- <div class="decorations">
+            <div class="decoration-item" style="--delay: 0s">🎄</div>
+            <div class="decoration-item" style="--delay: 2s">🎁</div>
+            <div class="decoration-item" style="--delay: 4s">⭐</div>
+            <div class="decoration-item" style="--delay: 6s">🔔</div>
+        </div> -->
+        
+        <div class="gift-grid">
+            <div class="gift-item" onclick="revealGift(this, 'Apple Watch Series 9')">
+                <div class="gift-box">
+                    <div class="gift-wrap">
+                        <img src="gift.png" alt="Mystery Gift Box">
+                        <div class="ribbon"></div>
+                    </div>
+                </div>
+                <div class="gift-content">
+                    <h3>🌟 Em bé sẽ nhận được:</h3>
+                    
+                    <p class="gift-reveal">Babythree Hải Sản</p>
+                </div>
+            </div>
+
+            <div class="gift-item" onclick="revealGift(this, 'Chanel Perfume')">
+                <div class="gift-box">
+                    <div class="gift-wrap">
+                        <img src="gift.png" alt="Mystery Gift Box">
+                        <div class="ribbon"></div>
+                    </div>
+                </div>
+                <div class="gift-content">
+                    <h3>🎉 Em bé sẽ nhận được:</h3>
+                    
+                    <p class="gift-reveal">1 đóa hoa xinh đẹp</p>
+                </div>
+            </div>
+
+            <div class="gift-item" onclick="revealGift(this, 'Tiffany Necklace')">
+                <div class="gift-box">
+                    <div class="gift-wrap">
+                        <img src="gift.png" alt="Mystery Gift Box">
+                        <div class="ribbon"></div>
+                    </div>
+                </div>
+                <div class="gift-content">
+                    <h3>🎉 Em bé sẽ nhận được:</h3>
+                    <p class="gift-reveal">Vòng cổ PNJ</p>
+                </div>
+            </div>
+
+            <div class="gift-item" onclick="revealGift(this, 'Spa Voucher')">
+                <div class="gift-box">
+                    <div class="gift-wrap">
+                        <img src="gift.png" alt="Mystery Gift Box">
+                        <div class="ribbon"></div>
+                    </div>
+                </div>
+                <div class="gift-content">
+                    <h3>🎉 Em bé sẽ nhận được:</h3>
+                    <p class="gift-reveal">Babythree 12 CHĐ</p>
+                </div>
+            </div>
+
+            <div class="gift-item" onclick="revealGift(this, 'Nike Air Jordan')">
+                <div class="gift-box">
+                    <div class="gift-wrap">
+                        <img src="gift.png" alt="Mystery Gift Box">
+                        <div class="ribbon"></div>
+                    </div>
+                </div>
+                <div class="gift-content">
+                    <h3>🎉 Em bé sẽ nhận được:</h3>
+                    <p class="gift-reveal">Một chiếc áo xinh xinh</p>
+                </div>
+            </div>
+
+            <div class="gift-item" onclick="revealGift(this, 'iPhone 15 Pro')">
+                <div class="gift-box">
+                    <div class="gift-wrap">
+                        <img src="gift.png" alt="Mystery Gift Box">
+                        <div class="ribbon"></div>
+                    </div>
+                </div>
+                <div class="gift-content">
+                    <h3>🎉 Em bé sẽ nhận được:</h3>
+                    <p class="gift-reveal">Hộp quà bất ngờ</p>
+                </div>
+            </div>
+
+            <div class="gift-item" onclick="revealGift(this, 'Travel Voucher')">
+                <div class="gift-box">
+                    <div class="gift-wrap">
+                        <img src="gift.png" alt="Mystery Gift Box">
+                        <div class="ribbon"></div>
+                    </div>
+                </div>
+                <div class="gift-content">
+                    <h3>🎉 Em bé sẽ nhận được:</h3>
+                    <p class="gift-reveal">Babythree Thỏ Thị Trấn</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div id="selected-gift" class="selected-gift">
+            <h2>Your Selected Gifts:</h2>
+            <div id="gift-list"></div>
+        </div> -->
+    </div>
+
+    <script>
+        let choicesLeft = 3;
+        const selectedGifts = [];
+
+        function revealGift(element, giftName) {
+            if (choicesLeft > 0 && !element.classList.contains('revealed')) {
+                element.classList.add('revealed');
+                element.querySelector('.gift-box').classList.add('hidden');
+                element.querySelector('.gift-content').classList.remove('hidden');
+                
+                choicesLeft--;
+                document.getElementById('choices-left').textContent = choicesLeft;
+                selectedGifts.push(giftName);
+                
+                updateGiftList();
+                document.getElementById('selected-gift').style.display = 'block';
+                
+                if (choicesLeft === 0) {
+                    document.querySelectorAll('.gift-item:not(.revealed)').forEach(item => {
+                        item.style.opacity = '0.5';
+                        item.style.pointerEvents = 'none';
+                    });
+                }
+            }
+        }
+
+        function updateGiftList() {
+            const giftList = document.getElementById('gift-list');
+            giftList.innerHTML = selectedGifts.map(gift => `<div class="selected-gift-item">🎁 ${gift}</div>`).join('');
+        }
+
+        // Create snowflakes
+        function createSnowflakes() {
+            const snowfall = document.querySelector('.snowfall');
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                snowflake.style.opacity = Math.random();
+                snowflake.style.transform = `scale(${Math.random()})`;
+                snowfall.appendChild(snowflake);
+            }
+        }
+
+        createSnowflakes();
+
+        function showCongratsDialog() {
+            const dialog = document.getElementById('congratsDialog');
+            const giftsList = document.getElementById('finalGiftsList');
+            
+            // Populate selected gifts with icons
+            giftsList.innerHTML = selectedGifts
+                .map((gift, index) => `
+                    <div class="gift-item">
+                        <span class="gift-number">${index + 1}</span>
+                        🎁 ${gift}
+                    </div>
+                `)
+                .join('');
+            
+            dialog.style.display = 'block';
+        }
+    </script>
+</body>
+</html> 
